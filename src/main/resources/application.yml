@@ -1,0 +1,39 @@
+# Application name and port
+spring:
+  application:
+    name: demo
+  datasource:
+    url: jdbc:postgresql://database-1-instance-1.cpc06umgs34n.ap-southeast-2.rds.amazonaws.com:5432/demodb
+    username: demodb
+    password: 4TXykKBH!
+    driver-class-name: org.postgresql.Driver
+  flyway:
+    locations: classpath:db/migration
+    baseline-version: 0
+    enabled: true
+    baseline-on-migrate: true
+    out-of-order: true
+  messages:
+    basename: messages
+    encoding: UTF-8
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+
+server:
+  port: 8081
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework: DEBUG
+    com.azure.spring: DEBUG
+
+# Security
+# spring:
+#   security:
+#     user:
+#       password: Test12345_
+#     filter:
+#       order: 10

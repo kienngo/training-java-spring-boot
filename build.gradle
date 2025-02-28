@@ -1,0 +1,74 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.4'
+	id 'io.spring.dependency-management' version '1.1.4'
+	id 'org.flywaydb.flyway' version '8.5.6'
+	id "org.sonarqube" version "4.4.1.3373"
+}
+
+sonarqube {
+	properties {
+		property "sonar.gradle.skipCompile", "true"
+		property "sonar.skipCompile", "true"
+		property "sonar.host.url", "http://10.32.4.169:5000/"
+		property "sonar.login", "admin"
+		property "sonar.password", "Vhec2023"
+		property "sonar.scm.provider", "git"
+	}
+}
+
+
+group = 'com.example'
+version = '0.0.1'
+
+java {
+	sourceCompatibility = '21'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web:3.3.4'
+	implementation 'org.springframework.boot:spring-boot-starter'
+	compileOnly 'org.projectlombok:lombok:1.18.34'
+	annotationProcessor 'org.projectlombok:lombok:1.18.34'
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor:3.3.4'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa:3.2.4'
+	implementation 'org.hibernate:hibernate-validator:6.1.6.Final'
+	implementation 'org.springframework.boot:spring-boot-starter-validation:3.3.4'
+	implementation 'org.hibernate:hibernate-core:6.4.4.Final'
+	implementation 'org.modelmapper:modelmapper:3.0.0'
+	implementation 'org.flywaydb:flyway-core:8.5.6'
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test:3.3.4'
+	implementation 'com.azure.spring:spring-cloud-azure-starter-active-directory:5.16.0'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client:3.3.4'
+	//implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server:3.3.4'
+	testImplementation 'org.springframework.security:spring-security-test:6.3.3'
+	implementation 'org.springframework.boot:spring-boot-starter-security:3.3.4'
+	implementation 'org.postgresql:postgresql:42.7.4'
+}
+
+
+flyway {
+	url = 'jdbc:postgresql://database-1-instance-1.cpc06umgs34n.ap-southeast-2.rds.amazonaws.com:5432/demodb'
+	user = 'demodb'
+	password = '4TXykKBH!'
+	locations = ['filesystem:src/main/resources/db/migration']
+	baselineVersion = "0"
+	baselineOnMigrate=true
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
